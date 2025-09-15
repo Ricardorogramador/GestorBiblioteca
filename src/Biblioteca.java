@@ -106,8 +106,8 @@ public class Biblioteca {
         persistencia.guardar(prestamos, "prestamos.txt");
     }
     void cargarDatos() throws IOException{
-        persistencia.cargar("materiales.txt");
-        persistencia.cargar("usuarios.txt");
-        persistencia.cargar("prestamos.txt");
+      materiales = (ArrayList<MaterialBiblioteca>)  persistencia.cargar("materiales.txt");
+      usuarios = (ArrayList<Usuario>)  persistencia.cargar("usuarios.txt");
+      prestamos = (ArrayList<Prestamo>)  persistencia.cargar("prestamos.txt");
     }
 }
