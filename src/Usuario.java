@@ -33,4 +33,13 @@ public class Usuario {
     void agregarPrestamo(Prestamo p){}
 
     void mostrarPrestamo(){}
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", prestamos=" + prestamos +
+                '}';
+    }
 }

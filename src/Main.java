@@ -1,11 +1,12 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner entrada = new Scanner(System.in);
         int opcion;
         Biblioteca biblioteca = new Biblioteca();
-
+        biblioteca.persistencia = new PersistenciaTXT();
         do {
             System.out.println("Bienvenido al gestor de biblioteca");
             System.out.println("1. Agregar material");
@@ -17,6 +18,28 @@ public class Main {
             System.out.println("7. Cargar datos");
             System.out.println("8. Salir");
             opcion = entrada.nextInt();
+            switch(opcion){
+                case 1:
+                    biblioteca.agregarMaterial(null);
+                break;
+                case 2:
+                    biblioteca.agregarUsuarios();
+                break;
+                case 3:
+                    biblioteca.realizarPrestamo();
+                break;
+                case 4:
+                    biblioteca.mostrarMateriales();
+                break;
+                case 5:
+                    biblioteca.mostrarUsuarios();
+                break;
+                case 6:
+                    biblioteca.guardarDatos();
+                break;
+                case 7:
+                    biblioteca.cargarDatos();
+            }
         }while(opcion != 8);
     }
 }
