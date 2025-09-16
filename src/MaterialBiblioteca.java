@@ -38,11 +38,7 @@ public abstract class MaterialBiblioteca {
 
     @Override
     public String toString() {
-        return "MaterialBiblioteca{" +
-                "codigo='" + codigo + '\'' +
-                ", titulo='" + titulo + '\'' +
-                ", anioPublicacion=" + anioPublicacion +
-                '}';
+        return "M," + codigo + "," + titulo + "," + anioPublicacion;
     }
     abstract void mostrarInformacion();
 }

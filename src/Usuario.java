@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Usuario {
     private String id;
     private String nombre;
-    private ArrayList<Prestamo> prestamos = new ArrayList<>();
+    private List<Prestamo> prestamos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -12,6 +13,11 @@ public class Usuario {
         this.id = id;
         this.nombre = nombre;
         this.prestamos = prestamos;
+    }
+
+    public Usuario(String id, String nombre){
+        this.id = id;
+        this.nombre = nombre;
     }
 
     public String getId() {
@@ -30,16 +36,25 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    void agregarPrestamo(Prestamo p){}
+    void agregarPrestamo(Prestamo p){
+        prestamos.add(p);
+    }
 
-    void mostrarPrestamo(){}
+    String mostrarPrestamo(){
+        StringBuilder sb = new StringBuilder();
+        for (Prestamo p : prestamos){
+            String line = String.format("Code: %s, StartDate: %s, EndDate: %s", p.material.getCodigo(), p.getFechaPrestamo(), p.getFechaDevolucion());
+            sb.append(line);
+        }
+        return sb.toString();
+    }
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", prestamos=" + prestamos +
-                '}';
+        return id + "," + nombre + "," + mostrarPrestamo();
+    }
+    public static Usuario fromString(String linea){
+        String[] partes = linea.split(",");
+        return null;
     }
 }

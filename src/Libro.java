@@ -11,6 +11,12 @@ public class Libro extends MaterialBiblioteca{
         this.numeroPaginas = numeroPaginas;
     }
 
+    public Libro(String letra, String cod, String title, int publicacion, String autr, int numberPage) {
+        super(cod, title, publicacion);
+        this.autor = autr;
+        this.numeroPaginas = numberPage;
+    }
+
     public String getAutor() {
         return autor;
     }
@@ -35,5 +41,15 @@ public class Libro extends MaterialBiblioteca{
         System.out.println("Autor: " + getAutor());
         System.out.println("Numero de paginas: " + getNumeroPaginas());
         System.out.println("-------------------------------------------------");
+    }
+
+    @Override
+    public String toString() {
+        return  "L," + getCodigo() + "," + getTitulo() + "," + getAnioPublicacion() + "," + autor + "," + numeroPaginas;
+    }
+    public static Libro fromString(String linea){
+        String[] partes =  linea.split(",");
+        // MaterialBiblioteca{codigo='1', titulo='Principito',2000
+        return new Libro(partes[0],partes[1], partes[2], Integer.parseInt(partes[3]), partes[4], Integer.parseInt(partes[5]));
     }
 }

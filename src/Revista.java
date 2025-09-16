@@ -11,6 +11,12 @@ public class Revista extends MaterialBiblioteca{
         this.periocidad = periocidad;
     }
 
+    public Revista(String letter, String code, String title, int publicacion, int edicion, String perio) {
+        super(code, title, publicacion);
+        this.numeroEdicion = edicion;
+        this.periocidad = perio;
+    }
+
     public int getNumeroEdicion() {
         return numeroEdicion;
     }
@@ -35,5 +41,14 @@ public class Revista extends MaterialBiblioteca{
         System.out.println("Edicion: " + getNumeroEdicion());
         System.out.println("Periocidad: " + getPeriocidad());
         System.out.println("-------------------------------------------");
+    }
+
+    @Override
+    public String toString() {
+        return "R," + getCodigo() + "," + getTitulo() + "," + getAnioPublicacion() + "," + numeroEdicion + "," + periocidad;
+    }
+    public  static Revista fromString(String linea){
+        String[] partes =  linea.split(",");
+        return new Revista(partes[0], partes[1], partes[2], Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), partes[5]);
     }
 }

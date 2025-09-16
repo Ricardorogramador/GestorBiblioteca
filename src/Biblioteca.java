@@ -8,7 +8,9 @@ public class Biblioteca {
     ArrayList<MaterialBiblioteca> materiales;
     ArrayList<Usuario> usuarios;
     ArrayList<Prestamo> prestamos;
-    IPersistencia persistencia;
+    IPersistencia<Usuario> persistenciaUsuarios = new PersistenciaTXT<>();
+    IPersistencia<MaterialBiblioteca> persistenciaMaterial = new PersistenciaTXT<>();
+    IPersistencia<Prestamo> persistenciaPrestamos = new PersistenciaTXT<>();
     Scanner entrada = new Scanner(System.in);
     int opcion;
 
@@ -86,7 +88,7 @@ public class Biblioteca {
         } else {
             System.out.println("Ingrese el nombre del usuario");
             nombre = entrada.next();
-            nuevoUsuario = new Usuario(id,nombre , prestamos);
+            nuevoUsuario = new Usuario(id,nombre);
             if (nuevoUsuario != null){
                 usuarios.add(nuevoUsuario);
                 System.out.println("Usuario agregado a la base de datos");
@@ -108,8 +110,8 @@ public class Biblioteca {
                     LocalDate fecha = LocalDate.now();
                     LocalDate devolucion = fecha.plusDays(7);
                     Prestamo p = new Prestamo(u, m, fecha.toString(), devolucion.toString());
-
                     prestamos.add(p);
+                    u.agregarPrestamo(p);
                     System.out.println("Prestamos realizado con exito");
                     return;
                 }
@@ -124,16 +126,20 @@ public class Biblioteca {
     void mostrarUsuarios(){
         for (Usuario u : usuarios){
             System.out.println(u);
+            u.mostrarPrestamo();
         }
     }
     void guardarDatos() throws IOException {
-        persistencia.guardar(materiales, "materiales.txt");
-        persistencia.guardar(usuarios, "usuarios.txt");
-        persistencia.guardar(prestamos, "prestamos.txt");
+        persistenciaMaterial.guardar(materiales, "materiales.txt");
+        persistenciaUsuarios.guardar(usuarios, "usuarios.txt");
+        persistenciaPrestamos.guardar(prestamos, "prestamos.txt");
     }
     void cargarDatos() throws IOException{
-      materiales = (ArrayList<MaterialBiblioteca>)  persistencia.cargar("materiales.txt");
-      usuarios = (ArrayList<Usuario>)  persistencia.cargar("usuarios.txt");
-      prestamos = (ArrayList<Prestamo>)  persistencia.cargar("prestamos.txt");
+      ArrayList<MaterialBiblioteca> material = (ArrayList<MaterialBiblioteca>) persistenciaMaterial.cargar("materiales.txt", Libro::fromString);
+      materiales.addAll(material);
+      ArrayList<MaterialBiblioteca> revista = (ArrayList<MaterialBiblioteca>) persistenciaMaterial.cargar("materiales.txt", Revista::fromString);
+      materiales.addAll(revista);
+      ArrayList<Prestamo> prestamo = (ArrayList<Prestamo>) persistenciaPrestamos.cargar("prestamos.txt", Prestamo::fromString);
+      prestamos.addAll(prestamo);
     }
 }
