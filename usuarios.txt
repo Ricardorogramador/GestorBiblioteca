@@ -1,3 +1,0 @@
-Usuario{id='1', nombre='ricardo', prestamos=[]}
-Usuario{id='2', nombre='juan', prestamos=[]}
-Usuario{id='3', nombre='andres', prestamos=[]}
