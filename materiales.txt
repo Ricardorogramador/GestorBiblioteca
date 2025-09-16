@@ -1,2 +1,0 @@
-MaterialBiblioteca{codigo='1', titulo='Principito', anioPublicacion=2000}
-MaterialBiblioteca{codigo='2', titulo='todohombre', anioPublicacion=2015}
