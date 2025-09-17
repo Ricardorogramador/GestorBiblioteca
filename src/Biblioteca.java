@@ -139,7 +139,12 @@ public class Biblioteca {
       materiales.addAll(material);
       ArrayList<MaterialBiblioteca> revista = (ArrayList<MaterialBiblioteca>) persistenciaMaterial.cargar("materiales.txt", Revista::fromString);
       materiales.addAll(revista);
+        ArrayList<Usuario> usuario = persistenciaUsuarios.cargar("usuarios.txt", Usuario::fromString);
+        usuarios.addAll(usuario);
       ArrayList<Prestamo> prestamo = (ArrayList<Prestamo>) persistenciaPrestamos.cargar("prestamos.txt", Prestamo::fromString);
+      for (Prestamo p : prestamo){
+          p.enlazar(usuarios,materiales);
+      }
       prestamos.addAll(prestamo);
     }
 }

@@ -55,6 +55,6 @@ public class Usuario {
     }
     public static Usuario fromString(String linea){
         String[] partes = linea.split(",");
-        return null;
+        return new Usuario(partes[0], partes[1]);
     }
 }

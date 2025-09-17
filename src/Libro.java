@@ -49,7 +49,6 @@ public class Libro extends MaterialBiblioteca{
     }
     public static Libro fromString(String linea){
         String[] partes =  linea.split(",");
-        // MaterialBiblioteca{codigo='1', titulo='Principito',2000
         return new Libro(partes[0],partes[1], partes[2], Integer.parseInt(partes[3]), partes[4], Integer.parseInt(partes[5]));
     }
 }
