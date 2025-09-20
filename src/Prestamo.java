@@ -19,10 +19,7 @@ public class Prestamo {
     }
 
     public Prestamo(Usuario usuario, MaterialBiblioteca material, String fechaPrestamo, String fechaDevolucion) {
-        this.usuario = usuario;
-        this.material = material;
-        this.fechaPrestamo = fechaPrestamo;
-        this.fechaDevolucion = fechaDevolucion;
+      this(null, usuario, material, fechaPrestamo, fechaDevolucion);
     }
 
     public Usuario getUsuario() {
@@ -49,6 +46,14 @@ public class Prestamo {
         return codigoMaterial;
     }
 
+    public void setCodigoMaterial(String codigoMaterial) {
+        this.codigoMaterial = codigoMaterial;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     @Override
     public String toString() {
         return  idUsuario + "," + codigoMaterial + "," + getFechaPrestamo() + "," + getFechaDevolucion();
@@ -61,21 +66,23 @@ public class Prestamo {
         String fechaDevolucion = partes[3];
 
         Prestamo p = new Prestamo(null, null, fechaPrestamo, fechaDevolucion);
-        p.idUsuario = idUsuario;
-        p.codigoMaterial = codigoMaterial;
+        p.setIdUsuario(idUsuario);
+        p.setCodigoMaterial(codigoMaterial);
         return p;
     }
     public void enlazar(ArrayList<Usuario> usuarios, ArrayList<MaterialBiblioteca> materiales){
-        for(Usuario u : usuarios){
-            if (u.getId().equals(this.idUsuario)){
-                this.usuario = u;
-                break;
+        if (usuarios != null){
+            for(Usuario u : usuarios){
+                if (u.getId().equals(this.idUsuario)){
+                    this.usuario = u;
+                    break;
+                }
             }
-        }
-        for (MaterialBiblioteca m : materiales){
-            if (m.getCodigo().equals(this.codigoMaterial)){
-                this.material = m;
-                break;
+            for (MaterialBiblioteca m : materiales){
+                if (m.getCodigo().equals(this.codigoMaterial)){
+                    this.material = m;
+                    break;
+                }
             }
         }
     }
