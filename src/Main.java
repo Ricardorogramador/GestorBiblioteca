@@ -6,9 +6,6 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         int opcion;
         Biblioteca biblioteca = new Biblioteca();
-        biblioteca.persistenciaUsuarios = new PersistenciaTXT<>();
-        biblioteca.persistenciaPrestamos = new PersistenciaTXT<>();
-        biblioteca.persistenciaMaterial = new PersistenciaTXT<>();
         do {
             System.out.println("Bienvenido al gestor de biblioteca");
             System.out.println("1. Agregar material");

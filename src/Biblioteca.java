@@ -5,20 +5,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Biblioteca {
-    ArrayList<MaterialBiblioteca> materiales;
-    ArrayList<Usuario> usuarios;
-    ArrayList<Prestamo> prestamos;
-    IPersistencia<Usuario> persistenciaUsuarios = new PersistenciaTXT<>();
-    IPersistencia<MaterialBiblioteca> persistenciaMaterial = new PersistenciaTXT<>();
-    IPersistencia<Prestamo> persistenciaPrestamos = new PersistenciaTXT<>();
-    Scanner entrada = new Scanner(System.in);
-    int opcion;
+  private  ArrayList<MaterialBiblioteca> materiales;
+  private  ArrayList<Usuario> usuarios;
+  private  ArrayList<Prestamo> prestamos;
+  private  IPersistencia<Usuario> persistenciaUsuarios = new PersistenciaTXT<>();
+  private  IPersistencia<MaterialBiblioteca> persistenciaMaterial = new PersistenciaTXT<>();
+  private  IPersistencia<Prestamo> persistenciaPrestamos = new PersistenciaTXT<>();
+  private  Scanner entrada = new Scanner(System.in);
+  private static final String MATERIAL_TXT = "materiales.txt";
+  private static final String USUARIOS_TXT = "usuarios.txt";
+  private static final String PRESTAMOS_TXT = "prestamos.txt";
 
     public Biblioteca(){
         materiales = new ArrayList<>();
         usuarios = new ArrayList<>();
         prestamos = new ArrayList<>();
     }
+
     void agregarMaterial(MaterialBiblioteca m){
         int opcion2;
         MaterialBiblioteca nuevomaterial = null;
@@ -130,18 +133,18 @@ public class Biblioteca {
         }
     }
     void guardarDatos() throws IOException {
-        persistenciaMaterial.guardar(materiales, "materiales.txt");
-        persistenciaUsuarios.guardar(usuarios, "usuarios.txt");
-        persistenciaPrestamos.guardar(prestamos, "prestamos.txt");
+        persistenciaMaterial.guardar(materiales, MATERIAL_TXT);
+        persistenciaUsuarios.guardar(usuarios, USUARIOS_TXT);
+        persistenciaPrestamos.guardar(prestamos, PRESTAMOS_TXT);
     }
     void cargarDatos() throws IOException{
-      ArrayList<MaterialBiblioteca> material = (ArrayList<MaterialBiblioteca>) persistenciaMaterial.cargar("materiales.txt", Libro::fromString);
+      ArrayList<MaterialBiblioteca> material = (ArrayList<MaterialBiblioteca>) persistenciaMaterial.cargar(MATERIAL_TXT, Libro::fromString);
       materiales.addAll(material);
-      ArrayList<MaterialBiblioteca> revista = (ArrayList<MaterialBiblioteca>) persistenciaMaterial.cargar("materiales.txt", Revista::fromString);
+      ArrayList<MaterialBiblioteca> revista = (ArrayList<MaterialBiblioteca>) persistenciaMaterial.cargar(MATERIAL_TXT, Revista::fromString);
       materiales.addAll(revista);
-      ArrayList<Usuario> usuario = persistenciaUsuarios.cargar("usuarios.txt", Usuario::fromString);
+      ArrayList<Usuario> usuario = persistenciaUsuarios.cargar(USUARIOS_TXT, Usuario::fromString);
         usuarios.addAll(usuario);
-      ArrayList<Prestamo> prestamo = (ArrayList<Prestamo>) persistenciaPrestamos.cargar("prestamos.txt", Prestamo::fromString);
+      ArrayList<Prestamo> prestamo = (ArrayList<Prestamo>) persistenciaPrestamos.cargar(PRESTAMOS_TXT, Prestamo::fromString);
       for (Prestamo p : prestamo){
           p.enlazar(usuarios,materiales);
       }
